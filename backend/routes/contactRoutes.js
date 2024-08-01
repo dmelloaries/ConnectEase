@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Contact = require('../models/contactModel');
-const contactSchema = require('../validation/contactValidation');
+const contactSchema = require('../validations/contactValidation');
 
 // Get all contacts
 router.get('/', async (req, res) => {
