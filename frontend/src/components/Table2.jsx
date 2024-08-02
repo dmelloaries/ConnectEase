@@ -27,7 +27,7 @@ const Table = ({ contacts, fetchContacts, setSelectedContacts }) => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/contacts/${id}`);
+            await axios.delete(`https://connectease-backend.onrender.com/contacts/${id}`);
             fetchContacts();
         } catch (error) {
             console.error('Error deleting contact:', error);
@@ -41,7 +41,7 @@ const Table = ({ contacts, fetchContacts, setSelectedContacts }) => {
 
     const handleUpdate = async (updatedContact) => {
         try {
-            await axios.put(`http://localhost:5000/contacts/${updatedContact._id}`, updatedContact);
+            await axios.put(`https://connectease-backend.onrender.com/contacts/${updatedContact._id}`, updatedContact);
             setIsModalOpen(false);
             fetchContacts();
         } catch (error) {

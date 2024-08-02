@@ -15,13 +15,13 @@ const App = () => {
     const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
     const fetchContacts = async () => {
-        const response = await axios.get('http://localhost:5000/contacts');
+        const response = await axios.get('https://connectease-backend.onrender.com/contacts');
         setContacts(response.data);
     };
 
     const handleSend = async (email) => {
         try {
-            const response = await axios.post('http://localhost:5000/send', { selectedContacts, email });
+            const response = await axios.post('https://connectease-backend.onrender.com/send', { selectedContacts, email });
             console.log('Email sent:', response.data);
             setSelectedContacts([]);
             setIsEmailModalOpen(false);

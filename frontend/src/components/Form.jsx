@@ -21,7 +21,7 @@ const Form = ({ fetchContacts }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/contacts', contact);
+            await axios.post('https://connectease-backend.onrender.com/contacts', contact);
             fetchContacts();
             setContact({ name: '', phone: '', email: '', hobbies: '' });
             setSuccessMessage('User created successfully!');
