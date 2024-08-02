@@ -3,7 +3,6 @@ import axios from 'axios';
 import UpdateContactModal from './UpdateContactCard';
 import {
     Box,
-    Checkbox,
     IconButton,
     Table as MuiTable,
     TableBody,
@@ -17,8 +16,7 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle,
-    Tooltip
+    DialogTitle
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -56,13 +54,11 @@ const Table = ({ contacts, fetchContacts, setSelectedContacts }) => {
     };
 
     return (
-        <Box sx={{ width: '100%', marginTop: 4, position: 'relative' }}>
-            <TableContainer component={Paper} elevation={3} sx={{ maxHeight: 600 }}>
-                <MuiTable stickyHeader>
+        <Box sx={{ width: '100%', marginTop: 4 }}>
+            <TableContainer component={Paper} elevation={3}>
+                <MuiTable>
                     <TableHead>
                         <TableRow>
-                           
-                            <TableCell><Typography variant="subtitle2">Select</Typography></TableCell>
                             <TableCell><Typography variant="subtitle2">ID</Typography></TableCell>
                             <TableCell><Typography variant="subtitle2">Name</Typography></TableCell>
                             <TableCell><Typography variant="subtitle2">Phone</Typography></TableCell>
@@ -73,60 +69,53 @@ const Table = ({ contacts, fetchContacts, setSelectedContacts }) => {
                     </TableHead>
                     <TableBody>
                         {contacts.map((contact, index) => (
-                            <TableRow key={contact._id}>
-                                <TableCell padding="checkbox">
-                                    <Checkbox onChange={() => handleSelect(contact)} />
-                                </TableCell>
+                            <TableRow key={contact._id} sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f9f9f9' } }}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{contact.name}</TableCell>
                                 <TableCell>{contact.phone}</TableCell>
                                 <TableCell>{contact.email}</TableCell>
                                 <TableCell>{contact.hobbies}</TableCell>
                                 <TableCell>
-                                    <Tooltip title="Edit">
-                                        <IconButton
-                                            color="primary"
-                                            onClick={() => handleUpdateClick(contact)}
-                                        >
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title="Delete">
-                                        <IconButton
-                                            color="error"
-                                            onClick={() => handleDelete(contact._id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </Tooltip>
+                                    <IconButton
+                                        color="primary"
+                                        onClick={() => handleUpdateClick(contact)}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton
+                                        color="error"
+                                        onClick={() => handleDelete(contact._id)}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </MuiTable>
             </TableContainer>
-            {isModalOpen && selectedContact && (
-                <Dialog
-                    open={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    maxWidth="sm"
-                    fullWidth
-                >
-                    <DialogTitle>Update Contact</DialogTitle>
-                    <DialogContent>
+            <Dialog
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                maxWidth="sm"
+                fullWidth
+            >
+                <DialogTitle>Update Contact</DialogTitle>
+                <DialogContent>
+                    {selectedContact && (
                         <UpdateContactModal
                             contact={selectedContact}
                             onClose={() => setIsModalOpen(false)}
                             onUpdate={handleUpdate}
                         />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => setIsModalOpen(false)} color="secondary">
-                            Cancel
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            )}
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setIsModalOpen(false)} color="secondary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };

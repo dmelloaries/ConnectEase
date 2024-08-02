@@ -14,10 +14,7 @@ app.use(bodyParser.json());
 
 const mongoUrl = process.env.MONGO_URL;
 
-mongoose.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+mongoose.connect(mongoUrl);
 
 app.use('/contacts', contactRoutes);
 app.use('/send', emailRoutes);
