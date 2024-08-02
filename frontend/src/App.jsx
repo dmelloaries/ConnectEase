@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Form from './components/Form';
 import Table from './components/Table';
 import Table2 from "./components/Table2"
+import Home from "./components/Home";
 import EmailModal from './components/EmailModal';
 import './index.css';
 
@@ -20,7 +21,7 @@ const App = () => {
 
     const handleSend = async (email) => {
         try {
-            const response = await axios.post('http://localhost:5000/send/', { selectedContacts, email });
+            const response = await axios.post('http://localhost:5000/send', { selectedContacts, email });
             console.log('Email sent:', response.data);
             setSelectedContacts([]);
             setIsEmailModalOpen(false);
@@ -40,7 +41,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={
                         <>
-                            <div className='font-extrabold'>Home Page</div>
+                            <Home></Home>
                         </>
                     } />
                     <Route path="/contacts" element={

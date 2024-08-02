@@ -8,10 +8,6 @@ dotenv.config();
 router.post('/', async (req, res) => {
     const { selectedContacts, email } = req.body;
 
-    console.log('Selected Contacts:', selectedContacts);
-    console.log('Recipient Email:', email);
-    console.log('Gmail User:', process.env.GMAIL_USER);
-
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -30,15 +26,8 @@ router.post('/', async (req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Error sending email:', error);
-            if (error.response) {
-                console.error('Error response:', error.response);
-            }
-            if (error.stack) {
-                console.error('Error stack:', error.stack);
-            }
-            return res.status(500).json({ error: error.message });
+            return res.status(500).json({ error: error.toString() });
         }
-        console.log('Email sent successfully:', info);
         res.json({ message: 'Message sent', info });
     });
 });
